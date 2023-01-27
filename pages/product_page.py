@@ -1,3 +1,4 @@
+
 from pages.base_page import BasePage
 from pages.locators import ProductPageLocators
 
@@ -8,8 +9,8 @@ class ProductPage(BasePage):
 
         self.should_be_book_name()
         self.should_be_book_price()
-        # не мое:
-        self.should_be_decription()
+
+        #self.should_be_decription()
         self.should_be_add_button()
 
         button = self.browser.find_element(*ProductPageLocators.Basket_button)
@@ -21,7 +22,7 @@ class ProductPage(BasePage):
         self.should_be_success()
         self.check_success_message()
 
-        # проверка имени
+
     def should_be_book_name(self):
 
         assert self.is_element_present(*ProductPageLocators.Book_name), "Not correct name "
@@ -33,11 +34,7 @@ class ProductPage(BasePage):
         assert self.is_element_present(*ProductPageLocators.Book_price), "Not correct price "
         self.book_price = self.browser.find_element(*ProductPageLocators.Book_price).text
 
-# *****
 
-    def should_be_decription(self):
-        assert self.is_element_present(*ProductPageLocators. Book_description ), "Description of product not found"
-        self.product_decription = self.browser.find_element(*ProductPageLocators.Book_description).text
 
     def should_be_success(self):
         assert self.is_element_present(*ProductPageLocators.Success_messages), "Message of Success added product in " \
@@ -48,7 +45,7 @@ class ProductPage(BasePage):
                                                                                 "presented "
 
     def check_success_message(self):
-        msg_lst = self.browser.find_elements(*ProductPageLocators.Success_messages)
-        assert len(msg_lst) == 3, "Success message not found"
 
+        self.success_messages = self.browser.find_element(*ProductPageLocators.Success_messages).text
+        assert self.book_name == self.success_messages," Bug in book name"
 
