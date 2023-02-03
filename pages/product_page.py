@@ -1,6 +1,6 @@
 
-from pages.base_page import BasePage
-from pages.locators import ProductPageLocators
+from .base_page import BasePage
+from .locators import ProductPageLocators
 
 
 class ProductPage(BasePage):
@@ -12,18 +12,11 @@ class ProductPage(BasePage):
 
         button = self.browser.find_element(*ProductPageLocators.Basket_button)
         button.click()
-       # self.should_not_be_success_message() #ожидаем, что там нет сообщения об успешном добавлении в корзину
-
-        self.solve_quiz_and_get_code()
         assert self.is_element_present(*ProductPageLocators.Basket_button), "No clik on basket button "
 
 
         self.should_be_success()
         self.check_success_message()
-
-
-
-        #self.should_success_message_disappeared()  #элемент присутствует на странице и должен исчезнуть
 
 
     def should_be_book_name(self):

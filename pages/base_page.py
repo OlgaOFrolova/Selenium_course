@@ -3,15 +3,15 @@ from selenium.common.exceptions import NoAlertPresentException
 import math
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
-from pages.locators import BasePageLocators
-from pages.locators import BasketPageLocators
+from .locators import BasePageLocators
+from .locators import BasketPageLocators
 
 class BasePage():
     def __init__(self, browser, url, timeout=10):
         self.browser = browser
 
         self.url = url
-        self.browser.implicitly_wait(timeout)
+        #self.browser.implicitly_wait(timeout)
 
     def is_element_present(self, how, what):
         try:
@@ -69,3 +69,9 @@ class BasePage():
     def go_to_basket_page(self):
         basket_button = self.browser.find_element(*BasketPageLocators.Basket_page)
         basket_button.click()
+
+    # проверка того, что пользователь залогинен
+
+    def should_be_authorized_user(self):
+        assert self.is_element_present(*BasePageLocators.USER_ICON), "User icon is not presented," \
+                                                                     " probably unauthorised user"
