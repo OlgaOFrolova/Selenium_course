@@ -11,7 +11,14 @@ from selenium.common.exceptions import NoAlertPresentException
 
 link = "http://selenium1py.pythonanywhere.com/en-gb/catalogue/the-city-and-the-stars_95/"
 
+class TestUserAddToBasketFromProductPage:
+    @pytest.fixture(scope='function', autouse=True)
+    def setup_class(self, browser):
 
+        page = LoginPage(browser, link)
+        page.open()
+        page.register_new_user()
+        page.should_be_authorized_user()
 @pytest.mark.need_review
 def test_user_can_add_product_to_basket(browser):
 
@@ -56,7 +63,7 @@ def test_guest_should_see_login_link_on_product_page(browser):
     page.should_be_login_link()
 
 # эти тесты в ревью не входят↓
-
+@pytest.mark.xfail
 def test_guest_can_add_product_to_basket(browser):
 
 
